@@ -33,7 +33,11 @@ namespace LDraw
 
         public Material GetColoredMaterial(int code)
         {
-            return _MainColors[code];
+            if (_MainColors.ContainsKey(code)) {
+                return _MainColors[code];
+            }
+            // TODO: temporary hack
+            return _MainColors[0];
         }
         public Material GetColoredMaterial(string colorString)
         {
