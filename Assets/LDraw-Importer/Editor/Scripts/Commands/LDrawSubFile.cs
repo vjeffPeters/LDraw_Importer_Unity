@@ -55,7 +55,7 @@ namespace LDraw
 
 		private Material GetMaterial()
 		{
-			if(_Extension == ".ldr") return  null;
+			if(_Extension == ".ldr" || _Extension == string.Empty) return  null;
 			if (_ColorCode > 0) return LDrawConfig.Instance.GetColoredMaterial(_ColorCode);
 			if (_Color != null) return LDrawConfig.Instance.GetColoredMaterial(_Color);
 			return LDrawConfig.Instance.GetColoredMaterial(0);

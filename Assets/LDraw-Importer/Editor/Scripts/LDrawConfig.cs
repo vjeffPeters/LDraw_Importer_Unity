@@ -37,6 +37,7 @@ namespace LDraw
                 return _MainColors[code];
             }
             // TODO: temporary hack
+            Debug.Log("Missing color: " + code);
             return _MainColors[0];
         }
         public Material GetColoredMaterial(string colorString)
