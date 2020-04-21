@@ -1,19 +1,21 @@
 # LDraw_Importer_Unity
 
-Пример работы: https://habr.com/post/433364/
+Working example: https://habr.com/post/433364/
 
-Чтобы открыть плагин выберите - **Window -> LDrawImporter -> Open Importer**
+To open the plugin select **Window -> LDrawImporter -> Open Importer**
 
-Плагин обладает двумя режимими: **ByName** и **Models**
+The plugin has two modes: **ByName** and **Models**
 
-**ByName** - генерирует любую деталь или модель по её имени (писать без расширения)
+**ByName** - generates any part or model by its name (write without extension)
 
-**Models** - выводит список моделей, которые лежат по пути LDrawFiles/blueprints/models/ (модели можно найти тут omr.ldraw.org)
+**Models** - displays a list of models that lie along the path LDrawFiles / blueprints / models / (models can be found here omr.ldraw.org)
 
-По нажатию на кнопку **Generate** - сгенерируется выбранная модель в выбранной сцене.
-Если **Generate** выдаёт ошибку и не генерирует модель - попробуйте нажать **Update bluepritns** или следуйте указаниям из ошибки.
+By clicking on the **Generate** button, the selected model will be generated in the selected scene.
+If the **Generate** generates an error and does not generate a model, try clicking **Update blueprints** or follow the instructions from the error.
 
-**Update bluepritns** - обновляет доступные чертежи, если вы закинули новые в папку с ldraw файлами
+**Update bluepritns** - updates available blueprints if you drop new ones into a folder with ldraw files
+
+(Instructons translated by google translate from upstream please excuse any errors)
 
 Copyright 2018 Grygory Dyadichenko
 
