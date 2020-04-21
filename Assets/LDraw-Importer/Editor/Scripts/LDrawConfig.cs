@@ -20,6 +20,7 @@ namespace LDraw
         [SerializeField] private float _Scale;
         [SerializeField] private Material _DefaultOpaqueMaterial;
         [SerializeField] private Material _DefaultTransparentMaterial;
+        [SerializeField] private int _DefaultColorCode;
         private Dictionary<string, string> _Parts;
         private Dictionary<string, string> _Models;
         
@@ -31,6 +32,10 @@ namespace LDraw
             get { return Matrix4x4.Scale(new Vector3(_Scale, _Scale, _Scale)); }
         }
 
+        public Material GetDefaultMaterial()
+        {
+            return GetColoredMaterial(_DefaultColorCode);
+        }
         public Material GetColoredMaterial(int code)
         {
             if (_MainColors.ContainsKey(code)) {
@@ -38,7 +43,7 @@ namespace LDraw
             }
             // TODO: temporary hack
             Debug.Log("Missing color: " + code);
-            return _MainColors[0];
+            return _MainColors[_DefaultColorCode];
         }
         public Material GetColoredMaterial(string colorString)
         {
@@ -128,7 +133,15 @@ namespace LDraw
                         var path =_MaterialsPath + args[2] + ".mat";
                         if (File.Exists(path))
                         {
-                            _MainColors.Add(int.Parse(args[4]), AssetDatabase.LoadAssetAtPath<Material>(path));
+                            // DEBUG: remove
+                            try
+                            {
+                                _MainColors.Add(int.Parse(args[4]), AssetDatabase.LoadAssetAtPath<Material>(path));
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.Log("Dupe color: " + args[4]);
+                            }
                         }
                         else
                         {

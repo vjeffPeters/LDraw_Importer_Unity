@@ -53,7 +53,10 @@
 0 !COLOUR Medium_Blue                        CODE  42   VALUE #7396C8   EDGE #4E7BBA
 0 !COLOUR Medium_Green                       CODE  37   VALUE #7FC475   EDGE #5DB450
 0 !COLOUR Light_Pink                         CODE  56   VALUE #FECCCF   EDGE #FC9BA1
+0 !COLOUR Light_Flesh                        CODE  90   VALUE #FFC995   EDGE #FFAD60
+0 !COLOUR Medium_Dark_Flesh                  CODE 150   VALUE #AA7D55   EDGE #876344
 0 !COLOUR Blue_Violet                        CODE  97   VALUE #1C58A7   EDGE #14407A
+0 !COLOUR Flesh                              CODE  28   VALUE #BB805A   EDGE #9F6641
 0 !COLOUR Light_Salmon                       CODE  26   VALUE #F9B7A5   EDGE #F59074
 0 !COLOUR Violet                             CODE  43   VALUE #26469A   EDGE #1C3472
 0 !COLOUR Medium_Violet                      CODE  73   VALUE #4861AC   EDGE #394D88
@@ -162,12 +165,3 @@
 0 !COLOUR Speckle_Black_Gold                 CODE 151   VALUE #000000   EDGE #DBAC34                               MATERIAL SPECKLE VALUE #DBAC34 FRACTION 0.4 MINSIZE 1 MAXSIZE 3
 0 !COLOUR Speckle_Black_Copper               CODE 116   VALUE #000000   EDGE #AB6038                               MATERIAL SPECKLE VALUE #AB6038 FRACTION 0.4 MINSIZE 1 MAXSIZE 3
 0 !COLOUR Speckle_Dark_Bluish_Grey_Silver    CODE 117   VALUE #635F61   EDGE #898788                               MATERIAL SPECKLE VALUE #898788 FRACTION 0.4 MINSIZE 1 MAXSIZE 3
-
-0 // LDraw Internal Common Material Colours
-0 !COLOUR Main_Colour                        CODE  16   VALUE #FFFF80   EDGE #333333
-0 !COLOUR Edge_Colour                        CODE  24   VALUE #7F7F7F   EDGE #333333
-0 !COLOUR Trans_Black_IR_Lens                CODE  32   VALUE #000000   EDGE #333333   ALPHA 210
-0 !COLOUR Magnet                             CODE 493   VALUE #656761   EDGE #7E8079                               METAL
-0 !COLOUR Electric_Contact_Alloy             CODE 494   VALUE #D0D0D0   EDGE #EAEAEA                               METAL
-0 !COLOUR Electric_Contact_Copper            CODE 495   VALUE #AE7A59   EDGE #BF967D                               METAL
-0 !COLOUR Trans_Sticker                      CODE 10047 VALUE #FFFFFF   EDGE #FFFFFF   ALPHA 16
