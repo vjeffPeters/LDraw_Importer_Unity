@@ -8,6 +8,7 @@ namespace LDraw
     
     public enum CommandType
     {
+        Comment = 0,
         SubFile = 1,
         Triangle = 3,
         Quad = 4
@@ -30,6 +31,9 @@ namespace LDraw
              
                 switch (commandType)
                 {
+                    case CommandType.Comment:
+                        command = new LDrawComment();
+                        break;
                     case CommandType.SubFile:
                         command = new LDrawSubFile();
                         break;
@@ -44,7 +48,7 @@ namespace LDraw
            
             if (command != null)
             {
-                if(!int.TryParse(args[1],out command._ColorCode))
+                if(!(command is LDrawComment) && !int.TryParse(args[1],out command._ColorCode))
                 {
                     command._Color = args[1];
                 }

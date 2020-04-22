@@ -77,14 +77,17 @@ namespace LDraw
         
             for (int i = 0; i < _Commands.Count; i++)
             {
-                var sfCommand = _Commands[i] as LDrawSubFile;
-                if (sfCommand == null)
+                switch (_Commands[i])
                 {
-                    _Commands[i].PrepareMeshData(triangles, verts);
-                }
-                else
-                {
-                    sfCommand.GetModelGameObject(go.transform);
+                    case LDrawComment cCommand:
+                        cCommand.GetCommentGameObject(go.transform);
+                        break;
+                    case LDrawSubFile sfCommand:
+                        sfCommand.GetModelGameObject(go.transform);
+                        break;
+                    default:
+                        _Commands[i].PrepareMeshData(triangles, verts);
+                        break;
                 }
             }
         
@@ -95,6 +98,10 @@ namespace LDraw
                 {
                     meshRenderer.material = mat;
                 }
+            }
+            else
+            {
+                go.AddComponent<SubModel>();
             }
         
             if (verts.Count > 0)
