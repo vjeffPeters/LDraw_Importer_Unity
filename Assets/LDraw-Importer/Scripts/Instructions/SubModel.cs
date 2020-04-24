@@ -7,6 +7,21 @@ namespace LDraw
     public class SubModel : MonoBehaviour
     {
         public int currPartIdx = 0;
+        public bool isRoot;
+
+        public Vector3 startPosition;
+        public Vector3 finalPosition;
+
+        void Awake()
+        {
+            if (!isRoot)
+            {
+                int stepIdx = transform.GetSiblingIndex() + 1;
+                Vector3 animationDirection = transform.parent.GetChild(stepIdx).GetComponent<Step>().animationDirection;
+                finalPosition = transform.localPosition;
+                startPosition = finalPosition + (animationDirection * Step.ANIMATION_DISTANCE);
+            }
+        }
 
         public void ClearSteps()
         {
@@ -35,7 +50,7 @@ namespace LDraw
             currPartIdx = 0;
         }
 
-        public bool NextStep()
+        public bool NextStep(bool animate)
         {
             while (currPartIdx < transform.childCount)
             {
@@ -44,6 +59,7 @@ namespace LDraw
                 Step nestedStep = currPart.GetComponent<Step>();
                 if (nestedStep != null)
                 {
+                    if (animate) nestedStep.PlayAnimations();
                     currPartIdx++;
                     if (currPartIdx == transform.childCount) break;
                     return true;
@@ -52,7 +68,8 @@ namespace LDraw
                 SubModel nestedSubModel = currPart.GetComponent<SubModel>();
                 if (nestedSubModel != null)
                 {
-                    if (!nestedSubModel.NextStep())
+                    nestedSubModel.transform.localPosition = nestedSubModel.startPosition;
+                    if (!nestedSubModel.NextStep(animate))
                     {
                         currPartIdx++;
                     }
@@ -85,11 +102,12 @@ namespace LDraw
                 SubModel nestedSubModel = currPart.GetComponent<SubModel>();
                 if (nestedSubModel != null)
                 {
+                    nestedSubModel.transform.localPosition = nestedSubModel.startPosition;
                     if (!nestedSubModel.PreviousStep())
                     {
-                        currPartIdx--;
+                        currPartIdx -= 2;// Last step before the submodel
                     }
-                    if (currPartIdx == -1) break;
+                    if (currPartIdx < 0) break;
                     return true;
                 }
 

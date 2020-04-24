@@ -6,6 +6,7 @@ namespace LDraw
     public class Stepper : MonoBehaviour
     {
         public bool ready = false;
+        public bool forward = true;
         private SubModel rootModel;
 
         void Start()
@@ -24,11 +25,15 @@ namespace LDraw
 
             if (ready && Input.GetKeyDown(KeyCode.F))
             {
-                rootModel.NextStep();
+                if (!forward) rootModel.NextStep(false);
+                forward = true;
+                rootModel.NextStep(true);
             }
 
             if (ready && Input.GetKeyDown(KeyCode.R))
             {
+                if (forward) rootModel.PreviousStep();
+                forward = false;
                 rootModel.PreviousStep();
             }
         }
