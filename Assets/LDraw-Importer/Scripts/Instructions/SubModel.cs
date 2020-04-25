@@ -50,18 +50,19 @@ namespace LDraw
             currPartIdx = 0;
         }
 
-        public bool NextStep(bool animate)
+        public bool NextStep()
         {
-            while (currPartIdx < transform.childCount)
-            {
-                Transform currPart = transform.GetChild(currPartIdx);
+            Transform currPart = transform.GetChild(currPartIdx);
+            if (currPart.GetComponent<Step>() != null) currPartIdx++;
 
-                Step nestedStep = currPart.GetComponent<Step>();
-                if (nestedStep != null)
+            for (; currPartIdx < transform.childCount; currPartIdx++)
+            {
+                currPart = transform.GetChild(currPartIdx);
+
+                Step nextStep = currPart.GetComponent<Step>();
+                if (nextStep != null)
                 {
-                    if (animate) nestedStep.PlayAnimations();
-                    currPartIdx++;
-                    if (currPartIdx == transform.childCount) break;
+                    nextStep.PlayAnimations();
                     return true;
                 }
 
@@ -69,15 +70,13 @@ namespace LDraw
                 if (nestedSubModel != null)
                 {
                     nestedSubModel.transform.localPosition = nestedSubModel.startPosition;
-                    if (!nestedSubModel.NextStep(animate))
+                    if (!nestedSubModel.NextStep())
                     {
-                        currPartIdx++;
+                        continue;
                     }
-                    if (currPartIdx == transform.childCount) break;
                     return true;
                 }
 
-                currPartIdx++;
                 currPart.gameObject.SetActive(true);
             }
 
@@ -87,15 +86,28 @@ namespace LDraw
 
         public bool PreviousStep()
         {
-            while (currPartIdx >= 0)
+            Transform currPart = transform.GetChild(currPartIdx);
+            if (currPart.GetComponent<Step>() != null)
             {
-                Transform currPart = transform.GetChild(currPartIdx);
-
-                Step nestedStep = currPart.GetComponent<Step>();
-                if (nestedStep != null)
+                currPartIdx--;
+                // Edge case: When we step back into a sub model first move it
+                // into start position without executing any steps
+                currPart = transform.GetChild(currPartIdx);
+                SubModel currentSubModel = currPart.GetComponent<SubModel>();
+                if (currentSubModel != null)
                 {
-                    currPartIdx--;
-                    if (currPartIdx == -1) break;
+                    currentSubModel.transform.localPosition = currentSubModel.startPosition;
+                    return true;
+                }
+            }
+
+            for (; currPartIdx >= 0; currPartIdx--)
+            {
+                currPart = transform.GetChild(currPartIdx);
+
+                Step previousStep = currPart.GetComponent<Step>();
+                if (previousStep != null)
+                {
                     return true;
                 }
 
@@ -105,13 +117,11 @@ namespace LDraw
                     nestedSubModel.transform.localPosition = nestedSubModel.startPosition;
                     if (!nestedSubModel.PreviousStep())
                     {
-                        currPartIdx -= 2;// Last step before the submodel
+                        continue;
                     }
-                    if (currPartIdx < 0) break;
                     return true;
                 }
 
-                currPartIdx--;
                 currPart.gameObject.SetActive(false);
             }
 
