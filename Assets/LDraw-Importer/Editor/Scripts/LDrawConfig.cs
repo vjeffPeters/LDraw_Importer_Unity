@@ -110,6 +110,10 @@ namespace LDraw
                 if (!file.Contains(".meta"))
                 {
                     string fileName = file.Replace(_BasePartsPath, "").Split('.')[0];
+
+                    //If part has subpath, remove subpath
+                    if (fileName.Contains("\\"))
+                        fileName = fileName.Split('\\')[1];
                    
                     if (!_Parts.ContainsKey(fileName))
                         _Parts.Add(fileName, file);
